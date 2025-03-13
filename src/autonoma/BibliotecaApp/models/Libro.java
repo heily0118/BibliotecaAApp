@@ -10,4 +10,14 @@ package autonoma.BibliotecaApp.models;
  */
 public class Libro {
     
+    
+    private long id;
+    private String titulo;
+    
+    public Libro(long id,String titulo){
+        this.id = id;
+        this.titulo = titulo;
+    
+    }
+    
 }
