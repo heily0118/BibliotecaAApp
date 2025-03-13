@@ -15,10 +15,26 @@ import java.util.ArrayList;
  * @since 20250312
  */
 public class Biblioteca {
-    
+    /**
+     * 
+     */
     private ArrayList <Libro> libros = new ArrayList<>();
     
     public Biblioteca(){
+    
+    }
+    
+    /**
+     * 
+     * @param id
+     * @param titulo
+     * @return : Se retorna un booleano
+     */
+    public boolean agregarLibro(long id, String titulo){
+    
+    Libro libro1 = new Libro(id,titulo);
+    libros.add(libro1);
+    return true;
     
     }
     
