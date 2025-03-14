@@ -6,7 +6,7 @@ package autonoma.BibliotecaApp.models;
 
 /**
  *
- * @author USUARIO
+ * @author Santiago Uribe
  */
 public class Libro {
     
