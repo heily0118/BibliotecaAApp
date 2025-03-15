@@ -37,7 +37,112 @@ public class Biblioteca {
     return true;
     
     }
+
+    public ArrayList<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(ArrayList<Libro> libros) {
+        this.libros = libros;
+    }
     
     
+    /**
+     * 
+     * @param id
+     * @return 
+     */
+    public String buscarLibro(long id){
+        String resultado = "";
+        //boolean resultadoo = false;
+        
+        for(Libro libro: libros){
+        
+            if (id == libro.getId()){
+            
+             resultado += libro.getTitulo();
+             
+                //resultadoo = true;
+            }
+        
+        }
+            
+        return resultado;
+        
+    
+    
+    }
+    /**
+     * 
+     * @param id
+     * @return 
+     */
+    public boolean eliminarLibro(long id){
+        boolean resultado = false;
+        for(Libro libro: libros){
+            if (id == libro.getId()){
+                
+                libros.remove(libro);
+                resultado = true;
+            }
+                    
+        }
+    
+    
+    
+     return resultado;
+    }
+    
+    /**
+     * 
+     * @param id
+     * @param titulo
+     * @return 
+     */
+    public boolean actualizarLibro(long id, String titulo){
+    
+     boolean resultado = false;
+     
+     for(Libro libro: libros){
+     
+         if (id == libro.getId()){
+         
+             libro.setTitulo(titulo);
+         }
+     
+     }
+    
+     
+     return resultado;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String mostrarLibros(){
+    
+        String lista = "";
+        
+        for(Libro libro:libros){
+        
+            lista+= "Titulo : " + libro.getTitulo() + "ID: " +  libro.getId() + "\n";
+            
+        
+        
+        }
+        return lista;
+    
+    }
+    
+    /*
+    PRUEBAS DE FUNCIONAMIENTO
+   public static void main(String[] args) {
+        Biblioteca biblioteca = new Biblioteca();
+        biblioteca.agregarLibro(123, "SANGRE DE CORAZON");
+        biblioteca.buscarLibro(123);
+   }
+    
+    */
     
 }
