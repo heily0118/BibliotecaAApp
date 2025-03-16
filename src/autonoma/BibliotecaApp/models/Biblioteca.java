@@ -164,13 +164,8 @@ public ArrayList<Libro> obtenerLibrosAlfabeticamente() {
     }
  */
     
-    /*
-    PRUEBAS DE FUNCIONAMIENTO
-   public static void main(String[] args) {
-        Biblioteca biblioteca = new Biblioteca();
-        biblioteca.agregarLibro(123, "SANGRE DE CORAZON");
-        biblioteca.buscarLibro(123);
-    */
+    
+
 
     /*prueba de funcionamiento metodo organizar alfabeticamente
     public static void main(String[] args) {
@@ -186,7 +181,8 @@ public ArrayList<Libro> obtenerLibrosAlfabeticamente() {
         for (int i =0; i < librosOrdenados.size(); i++) {
             System.out.println(librosOrdenados.get(i).getTitulo());
         }
-    }
-    */
+*/
+
+  
     
 }
