@@ -5,7 +5,7 @@ import autonoma.BibliotecaApp.views.VentanaPrincipal;
 import autonoma.BibliotecaApp.models.Biblioteca;
 /**
  *
- * @author Heily Yohana Rios Ayala 
+ * @author Heily Yohana Rios Ayala <heilyy.riosa@autonoma.edu.co>
  * @version 1.0.0
  * 
  * @since 20250312
