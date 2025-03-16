@@ -181,6 +181,11 @@ public class MostrarLibros extends javax.swing.JDialog {
                 btnOpcionLibroPopupMenuWillBecomeVisible(evt);
             }
         });
+        btnOpcionLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpcionLibroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -260,6 +265,69 @@ public class MostrarLibros extends javax.swing.JDialog {
        
     }
     }//GEN-LAST:event_btnOpcionLibroPopupMenuWillBecomeVisible
+
+    private void btnOpcionLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpcionLibroActionPerformed
+      String opcionSeleccionada = (String) btnOpcionLibro.getSelectedItem();
+       if (opcionSeleccionada.equals("Selecciona una opción")) {
+        return; 
+    }
+
+    switch (opcionSeleccionada) {
+        case "Actualizar":
+            int filaSeleccionada = ListLibros.getSelectedRow();
+            if (filaSeleccionada == -1) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona un libro de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            long idLibro = Long.parseLong(ListLibros.getValueAt(filaSeleccionada, 1).toString());
+            String nuevoTitulo = obtenerTituloDesdeInput();
+            if (nuevoTitulo != null && !nuevoTitulo.trim().isEmpty()) {
+                if (biblioteca.actualizarLibro(idLibro, nuevoTitulo)) {
+                    JOptionPane.showMessageDialog(this, "Libro actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                actualizarTabla(biblioteca.obtenerTodosLosLibros());
+                
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró el libro para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El título no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+
+        case "Eliminar":
+            filaSeleccionada = ListLibros.getSelectedRow();
+            if (filaSeleccionada == -1) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona un libro de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            idLibro = Long.parseLong(ListLibros.getValueAt(filaSeleccionada, 1).toString());
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar el libro?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                if (biblioteca.eliminarLibro(idLibro)) {
+                  
+                    JOptionPane.showMessageDialog(this, "Libro eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                actualizarTabla(biblioteca.obtenerTodosLosLibros());
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró el libro para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            break;
+
+        case "Ordenar A-Z":
+            
+            ArrayList<Libro> librosOrdenados = biblioteca.obtenerLibrosAlfabeticamente();
+            actualizarTabla(librosOrdenados); 
+
+
+        default:
+            JOptionPane.showMessageDialog(this, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            break;
+        }
+
+                              
+    }//GEN-LAST:event_btnOpcionLibroActionPerformed
     private void mouseEntered(JPanel panel){
         panel.setBackground(new Color(200,255,255));
         

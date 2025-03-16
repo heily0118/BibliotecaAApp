@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import autonoma.BibliotecaApp.models.Libro;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,21 +37,18 @@ public class BuscarLibro extends javax.swing.JDialog {
         setSize(700, 550);
         setResizable(false);
         this.setLocationRelativeTo(null);
-       
         inicializarComboBox();
-
         
-
-        
-       
         this.biblioteca = biblioteca;
-        
+         
         try{ 
         this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/Biblioteca.png")).getImage());
         }catch(Exception e){
             
         }
+       
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -313,39 +311,86 @@ public class BuscarLibro extends javax.swing.JDialog {
     }//GEN-LAST:event_btnOpcionLibroPopupMenuWillBecomeVisible
 
     private void btnOpcionLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpcionLibroActionPerformed
-        // TODO add your handling code here:
+    String opcionSeleccionada = (String) btnOpcionLibro.getSelectedItem();
+
+    if (opcionSeleccionada.equals("Selecciona una opción")) {
+        return; 
+    }
+    switch (opcionSeleccionada) {
+        case "Actualizar":
+            int filaSeleccionada = LisLibros.getSelectedRow();
+            if (filaSeleccionada == -1) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona un libro de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            long idLibro = Long.parseLong(LisLibros.getValueAt(filaSeleccionada, 1).toString());
+            String nuevoTitulo = obtenerTituloDesdeInput();
+            if (nuevoTitulo != null && !nuevoTitulo.trim().isEmpty()) {
+                if (biblioteca.actualizarLibro(idLibro, nuevoTitulo)) {
+                    JOptionPane.showMessageDialog(this, "Libro actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                actualizarTabla(biblioteca.obtenerTodosLosLibros());
+                
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró el libro para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El título no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+
+        case "Eliminar":
+            filaSeleccionada = LisLibros.getSelectedRow();
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(this, "Por favor, selecciona un libro de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    idLibro = Long.parseLong(LisLibros.getValueAt(filaSeleccionada, 1).toString());
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar el libro?", "Confirmación", JOptionPane.YES_NO_OPTION);
+    if (confirmacion == JOptionPane.YES_OPTION) {
+        if (biblioteca.eliminarLibro(idLibro)) {
+            JOptionPane.showMessageDialog(this, "Libro eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            DefaultTableModel modelo = (DefaultTableModel) LisLibros.getModel();
+            modelo.setRowCount(0); // Agregar esta línea
+            libroBuscar.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró el libro para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    break;
+
+
+
+
+        default:
+            JOptionPane.showMessageDialog(this, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            break;
+        }
     }//GEN-LAST:event_btnOpcionLibroActionPerformed
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
-       String textoId = libroBuscar.getText().trim();
-    System.out.println("Texto en libroBuscar al hacer clic en Buscar: '" + textoId + "'");
-    
-    if (textoId.equals("Ingresa el ID del libro a buscar")) {
+    DefaultTableModel modelo = (DefaultTableModel) LisLibros.getModel();
+    modelo.setRowCount(0);
+    String textoId = libroBuscar.getText().trim();
+    if (textoId.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor, ingresa un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
-
     try {
         long id = Long.parseLong(textoId);
         Libro libro = biblioteca.obtenerLibroPorId(id);
-
-        DefaultTableModel modelo = (DefaultTableModel) LisLibros.getModel();
-        modelo.setRowCount(0); 
-
-        if (libro != null) {
-            modelo.addRow(new Object[]{
-                libro.getTitulo(),
-                libro.getId(),
-                libro.getAutor().getNombre(), 
-                libro.getAutor().getEditorial()
-            });
-        } else {
-            JOptionPane.showMessageDialog(this, "Libro no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+        if (libro == null) {
+            JOptionPane.showMessageDialog(this, "El libro con ID " + textoId + " ya ha sido eliminado.", "Error", JOptionPane.ERROR_MESSAGE);
+            libroBuscar.setText(""); 
+            return;
         }
+        modelo.addRow(new Object[]{ libro.getTitulo(), libro.getId(), libro.getAutor().getNombre(), libro.getAutor().getEditorial() });
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+
+
+
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void libroBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_libroBuscarActionPerformed
@@ -368,11 +413,38 @@ public class BuscarLibro extends javax.swing.JDialog {
     }
     
     private void inicializarComboBox() {
+        
     btnOpcionLibro.addItem("Selecciona una opción");
     btnOpcionLibro.addItem("Actualizar");
     btnOpcionLibro.addItem("Eliminar");
 
     btnOpcionLibro.setSelectedIndex(0); 
+}
+    private void actualizarTabla(ArrayList<Libro> libros) {
+     DefaultTableModel modelo = (DefaultTableModel) LisLibros.getModel();
+    modelo.setRowCount(0);
+    for (Libro libro : libros) {
+        modelo.addRow(new Object[]{libro.getTitulo(), libro.getId(), libro.getAutor().getNombre(), libro.getAutor().getEditorial()});
+    
+ 
+
+    }
+}
+     private long obtenerIdDesdeInput(String input) {
+    if (input == null || input.trim().isEmpty()) {
+        System.out.println("Error: El ID ingresado es nulo o vacío.");
+        return -1; 
+    }
+    
+    try {
+        return Long.parseLong(input);
+    } catch (NumberFormatException e) {
+        System.out.println("Error: El ID ingresado no es un número válido.");
+        return -1; 
+    }
+}
+    private String obtenerTituloDesdeInput() {
+    return JOptionPane.showInputDialog("Ingrese el nuevo título:");
 }
  
 
