@@ -18,6 +18,14 @@ public class Autor extends Persona {
         this.profesion = profesion;
     }
 
+    
+public Autor(String editorial,String nombre) {
+    super(nombre, "", "");
+    this.editorial = editorial;
+    this.profesion = "";
+    
+}
+
     public String getEditorial() {
         return editorial;
     }

@@ -15,7 +15,7 @@ import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
+import autonoma.BibliotecaApp.models.Autor;
 /**
  *
  * @author Heily Yohana Rios Ayala<heilyy.riosa@autonoma.edu.co>
@@ -324,20 +324,27 @@ public class BuscarLibro extends javax.swing.JDialog {
                 return;
             }
 
-            long idLibro = Long.parseLong(LisLibros.getValueAt(filaSeleccionada, 1).toString());
-            String nuevoTitulo = obtenerTituloDesdeInput();
-            if (nuevoTitulo != null && !nuevoTitulo.trim().isEmpty()) {
-                if (biblioteca.actualizarLibro(idLibro, nuevoTitulo)) {
-                    JOptionPane.showMessageDialog(this, "Libro actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                actualizarTabla(biblioteca.obtenerTodosLosLibros());
-                
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se encontró el libro para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "El título no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            break;
+    long idLibro = Long.parseLong(LisLibros.getValueAt(filaSeleccionada, 1).toString());
+    String nuevoTitulo = obtenerTituloDesdeInput();
+    String nuevoAutor = obtenerNombreAutorDesdeInput();
+    String nuevaEditorial = obtenerEditorialAutorDesdeInput();
+
+    Autor autorActualizado = new Autor(nuevaEditorial, nuevoAutor);
+    Libro libroActualizado = new Libro(nuevoTitulo, autorActualizado);
+    if (biblioteca.actualizarLibro(idLibro, libroActualizado)) {
+        JOptionPane.showMessageDialog(this, "Libro actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        DefaultTableModel modelo = (DefaultTableModel) LisLibros.getModel();
+        modelo.setRowCount(0);
+        modelo.addRow(new Object[]{libroActualizado.getTitulo(), idLibro, libroActualizado.getAutor().getNombre(), libroActualizado.getAutor().getEditorial()});
+    } else {
+        JOptionPane.showMessageDialog(this, "No se encontró el libro para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    break;
+
+
+
+
+
 
         case "Eliminar":
             filaSeleccionada = LisLibros.getSelectedRow();
@@ -446,7 +453,14 @@ public class BuscarLibro extends javax.swing.JDialog {
     private String obtenerTituloDesdeInput() {
     return JOptionPane.showInputDialog("Ingrese el nuevo título:");
 }
- 
+ private String obtenerNombreAutorDesdeInput() {
+    return JOptionPane.showInputDialog("Ingrese el nuevo nombre del autor:");
+}
+
+private String obtenerEditorialAutorDesdeInput() {
+    return JOptionPane.showInputDialog("Ingrese la nueva editorial del autor:");
+}
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

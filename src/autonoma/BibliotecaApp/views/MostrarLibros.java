@@ -6,6 +6,7 @@ package autonoma.BibliotecaApp.views;
 
 import autonoma.BibliotecaApp.models.Biblioteca;
 import autonoma.BibliotecaApp.models.Libro;
+import autonoma.BibliotecaApp.models.Autor;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -275,25 +276,25 @@ public class MostrarLibros extends javax.swing.JDialog {
     switch (opcionSeleccionada) {
         case "Actualizar":
             int filaSeleccionada = ListLibros.getSelectedRow();
-            if (filaSeleccionada == -1) {
-                JOptionPane.showMessageDialog(this, "Por favor, selecciona un libro de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
+           if (filaSeleccionada == -1) {
+             JOptionPane.showMessageDialog(this, "Por favor, selecciona un libro de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+              return;
+         }
+    long idLibro = Long.parseLong(ListLibros.getValueAt(filaSeleccionada, 1).toString());
+    String nuevoTitulo = obtenerTituloDesdeInput();
+    String nuevoNombreAutor = obtenerNombreAutorDesdeInput();
+    String nuevaEditorialAutor = obtenerEditorialAutorDesdeInput();
+    Autor autorActualizado = new Autor(nuevoNombreAutor, nuevaEditorialAutor);
+    Libro libroActualizado = new Libro(nuevoTitulo, autorActualizado);
+    if (biblioteca.actualizarLibro(idLibro, libroActualizado)) {
+        JOptionPane.showMessageDialog(this, "Libro actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        actualizarTabla(biblioteca.obtenerTodosLosLibros());
+    } else {
+        JOptionPane.showMessageDialog(this, "No se encontró el libro para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    break;
 
-            long idLibro = Long.parseLong(ListLibros.getValueAt(filaSeleccionada, 1).toString());
-            String nuevoTitulo = obtenerTituloDesdeInput();
-            if (nuevoTitulo != null && !nuevoTitulo.trim().isEmpty()) {
-                if (biblioteca.actualizarLibro(idLibro, nuevoTitulo)) {
-                    JOptionPane.showMessageDialog(this, "Libro actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                actualizarTabla(biblioteca.obtenerTodosLosLibros());
-                
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se encontró el libro para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "El título no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            break;
+
 
         case "Eliminar":
             filaSeleccionada = ListLibros.getSelectedRow();
@@ -362,6 +363,15 @@ public class MostrarLibros extends javax.swing.JDialog {
 private String obtenerTituloDesdeInput() {
     return JOptionPane.showInputDialog("Ingrese el nuevo título:");
 }
+private String obtenerNombreAutorDesdeInput() {
+    return JOptionPane.showInputDialog("Ingrese el nuevo nombre del autor:");
+}
+
+private String obtenerEditorialAutorDesdeInput() {
+    return JOptionPane.showInputDialog("Ingrese la nueva editorial del autor:");
+}
+
+
 
    private void inicializarComboBox() {
     btnOpcionLibro.addItem("Selecciona una opción");

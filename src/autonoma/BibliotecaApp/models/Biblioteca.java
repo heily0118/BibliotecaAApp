@@ -95,24 +95,19 @@ public class Biblioteca {
      * @param titulo
      * @return 
      */
-    public boolean actualizarLibro(long id, String titulo){
-    
-     boolean resultado = false;
-     
-     for(Libro libro: libros){
-     
-         if (id == libro.getId()){
-         
-             libro.setTitulo(titulo);
-             return true;
-         }
-     
-     }
-    
-     
-     return false;
+   public boolean actualizarLibro(long id, Libro libro){
+    boolean resultado = false;
+    for(Libro libroExistente: libros){
+        if (id == libroExistente.getId()){
+            libroExistente.setTitulo(libro.getTitulo());
+            libroExistente.setAutor(libro.getAutor());
+            libroExistente.getAutor().setEditorial(libro.getAutor().getEditorial());
+            return true;
+        }
     }
-    
+   return false;
+   }
+
     /**
      * 
      * @return 

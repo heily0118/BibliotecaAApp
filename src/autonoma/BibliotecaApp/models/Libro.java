@@ -17,6 +17,11 @@ public class Libro {
         this.titulo = titulo;
         this.autor = autor;
     }
+    public Libro(String titulo, Autor autor) {
+    this.titulo = titulo;
+    this.autor = autor;
+}
+
 
     public long getId() {
         return id;
