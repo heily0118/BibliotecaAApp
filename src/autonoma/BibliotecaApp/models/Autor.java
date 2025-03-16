@@ -34,8 +34,9 @@ public class Autor extends Persona {
         this.profesion = profesion;
     }
     /**
-     * 
-     * @return 
+     * @param editorial
+     * @param profesion
+     * @return nombre de la editorial y su profesion 
      */
     
     public String toString(){
