@@ -172,7 +172,7 @@ public ArrayList<Libro> obtenerLibrosAlfabeticamente() {
         biblioteca.buscarLibro(123);
     */
 
-    /*prueba de funcionamiento metodo organizar alfabeticamente */
+    /*prueba de funcionamiento metodo organizar alfabeticamente
     public static void main(String[] args) {
         Biblioteca biblioteca = new Biblioteca();
         biblioteca.agregarLibro(1, "Java Avanzado");
@@ -187,5 +187,6 @@ public ArrayList<Libro> obtenerLibrosAlfabeticamente() {
             System.out.println(librosOrdenados.get(i).getTitulo());
         }
     }
+    */
     
 }
