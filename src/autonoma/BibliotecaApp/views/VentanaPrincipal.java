@@ -21,8 +21,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     public VentanaPrincipal() {
         initComponents();
-         setSize(600, 450);
-         setResizable(false);
+        setSize(600, 450);
+        setResizable(false);
         this.setLocationRelativeTo(null);
         try{ 
         this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/Biblioteca.png")).getImage());
