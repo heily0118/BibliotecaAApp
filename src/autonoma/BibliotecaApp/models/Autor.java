@@ -33,8 +33,12 @@ public class Autor extends Persona {
     public void setProfesion(String profesion) {
         this.profesion = profesion;
     }
+    /**
+     * 
+     * @return 
+     */
     
-    
-    
-    
+    public String toString(){
+        return super.toString() + ", Autor{editorial='" + editorial + "', profesion='" + profesion + "'}";
+    }
 }
