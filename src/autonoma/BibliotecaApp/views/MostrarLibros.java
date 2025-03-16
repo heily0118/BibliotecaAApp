@@ -320,7 +320,8 @@ public class MostrarLibros extends javax.swing.JDialog {
             
             ArrayList<Libro> librosOrdenados = biblioteca.obtenerLibrosAlfabeticamente();
             actualizarTabla(librosOrdenados); 
-
+               
+          break;
 
         default:
             JOptionPane.showMessageDialog(this, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
