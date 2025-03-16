@@ -15,7 +15,11 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author USUARIO
+ * @author Heily Yohana Rios Ayala <heilyy.riosa@autonoma.edu.co>
+ * * 
+ * @version 1.0.0
+ * 
+ * @since 20250312
  */
 public class MostrarLibros extends javax.swing.JDialog {
     private Biblioteca biblioteca;
@@ -24,21 +28,21 @@ public class MostrarLibros extends javax.swing.JDialog {
     /**
      * Creates new form MostrarLibros
      */
-    public MostrarLibros(java.awt.Frame parent, boolean modal) {
+    public MostrarLibros(java.awt.Frame parent, boolean modal,Biblioteca biblioteca) {
         super(parent, modal);
         initComponents();
         setSize(650, 500);
         setResizable(false);
         this.setLocationRelativeTo(null);
         
-        this.biblioteca = new Biblioteca();
+        this.biblioteca = biblioteca;
          
         try{ 
         this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/Biblioteca.png")).getImage());
         }catch(Exception e){
             
         }
-        actualizarTabla();
+        actualizarTabla(biblioteca.obtenerTodosLosLibros());
     }
 
     /**
@@ -85,7 +89,7 @@ public class MostrarLibros extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGap(55, 55, 55))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,7 +99,7 @@ public class MostrarLibros extends javax.swing.JDialog {
                         .addGap(24, 24, 24)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(14, 14, 14)
                         .addComponent(cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
@@ -119,20 +123,20 @@ public class MostrarLibros extends javax.swing.JDialog {
 
         ListLibros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Titulo", "ID", "Autor"
+                "Titulo", "ID", "Autor", "Editorial"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -148,6 +152,7 @@ public class MostrarLibros extends javax.swing.JDialog {
             ListLibros.getColumnModel().getColumn(0).setResizable(false);
             ListLibros.getColumnModel().getColumn(1).setResizable(false);
             ListLibros.getColumnModel().getColumn(2).setResizable(false);
+            ListLibros.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jScrollPane4.setViewportView(jScrollPane3);
@@ -182,29 +187,30 @@ public class MostrarLibros extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(btnOpcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAceptar)
-                .addGap(162, 162, 162))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnOpcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(210, 210, 210)
+                        .addComponent(btnAceptar)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addContainerGap()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addGap(33, 33, 33)
                         .addComponent(btnOpcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(68, 68, 68)
+                .addGap(77, 77, 77)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAtras)
                     .addComponent(btnAceptar))
@@ -235,7 +241,7 @@ public class MostrarLibros extends javax.swing.JDialog {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
        
-     
+      this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
@@ -243,33 +249,44 @@ public class MostrarLibros extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnOpcionLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpcionLibroActionPerformed
-     String opcionSeleccionada = (String) btnOpcionLibro.getSelectedItem();
-
-    if (opcionSeleccionada == null) {
-        JOptionPane.showMessageDialog(this, "No seleccionaste ninguna opción.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+      String opcionSeleccionada = (String) btnOpcionLibro.getSelectedItem();
 
     switch (opcionSeleccionada) {
         case "Actualizar":
-            long idActualizar = obtenerIdDesdeInput();
-            String nuevoTitulo = obtenerTituloDesdeInput();
-
-            if (biblioteca.actualizarLibro(idActualizar, nuevoTitulo)) {
-                JOptionPane.showMessageDialog(this, "Libro actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontró el libro para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+            int filaSeleccionada = ListLibros.getSelectedRow();
+            if (filaSeleccionada == -1) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona un libro de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
             }
+
+            long idLibro = Long.parseLong(ListLibros.getValueAt(filaSeleccionada, 1).toString());
+            String nuevoTitulo = obtenerTituloDesdeInput();
+            if (nuevoTitulo != null && !nuevoTitulo.trim().isEmpty()) {
+                if (biblioteca.actualizarLibro(idLibro, nuevoTitulo)) {
+                    JOptionPane.showMessageDialog(this, "Libro actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    actualizarTabla(biblioteca.obtenerTodosLosLibros());
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró el libro para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El título no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
             break;
 
         case "Eliminar":
-            long idEliminar = obtenerIdDesdeInput();
+            filaSeleccionada = ListLibros.getSelectedRow();
+            if (filaSeleccionada == -1) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona un libro de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
+            idLibro = Long.parseLong(ListLibros.getValueAt(filaSeleccionada, 1).toString());
             int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar el libro?", "Confirmación", JOptionPane.YES_NO_OPTION);
-
             if (confirmacion == JOptionPane.YES_OPTION) {
-                if (biblioteca.eliminarLibro(idEliminar)) {
+                if (biblioteca.eliminarLibro(idLibro)) {
                     JOptionPane.showMessageDialog(this, "Libro eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    actualizarTabla(biblioteca.obtenerTodosLosLibros());
                 } else {
                     JOptionPane.showMessageDialog(this, "No se encontró el libro para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -277,27 +294,24 @@ public class MostrarLibros extends javax.swing.JDialog {
             break;
 
         case "Ordenar A-Z":
+            
             ArrayList<Libro> librosOrdenados = biblioteca.obtenerLibrosAlfabeticamente();
-            StringBuilder listaLibros = new StringBuilder("Libros ordenados:\n");
-
-            for (Libro libro : librosOrdenados) {
-                listaLibros.append(libro.getTitulo()).append("\n");
-            }
-
-            JOptionPane.showMessageDialog(this, listaLibros.toString(), "Libros Ordenados", JOptionPane.INFORMATION_MESSAGE);
+            actualizarTabla(librosOrdenados); 
             break;
+
 
         default:
             JOptionPane.showMessageDialog(this, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
             break;
     }
 
-    actualizarTabla();
+   btnOpcionLibro.setSelectedIndex(-1);
+
     }//GEN-LAST:event_btnOpcionLibroActionPerformed
 
     private void btnOpcionLibroPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_btnOpcionLibroPopupMenuWillBecomeVisible
        if (this.btnOpcionLibro.getItemCount() == 0) {
-        
+         this.btnOpcionLibro.addItem("Selecciona una opcion");
         this.btnOpcionLibro.addItem("Actualizar");
         this.btnOpcionLibro.addItem("Eliminar");
         this.btnOpcionLibro.addItem("Ordenar A-Z");
@@ -309,22 +323,30 @@ public class MostrarLibros extends javax.swing.JDialog {
         
     }
     private void mouseExited(JPanel panel){
-        panel.setBackground(new Color(255,255,255));
+    panel.setBackground(new Color(255,255,255));
     }
-    private void actualizarTabla() {
-    ArrayList<Libro> listaLibros = biblioteca.getLibros();
-    DefaultTableModel model = (DefaultTableModel) ListLibros.getModel();
-    model.setRowCount(0);
+    private void actualizarTabla(ArrayList<Libro> libros) {
+     DefaultTableModel modelo = (DefaultTableModel) ListLibros.getModel();
+    modelo.setRowCount(0);
+    for (Libro libro : libros) {
+        modelo.addRow(new Object[]{libro.getTitulo(), libro.getId(), libro.getAutor().getNombre(), libro.getAutor().getEditorial()});
+    
+ 
 
-    for (Libro libro : listaLibros) {
-       
-        Object[] fila = {libro.getTitulo(), libro.getId()};
-        model.addRow(fila);
     }
 }
-    private long obtenerIdDesdeInput() {
-    String input = JOptionPane.showInputDialog("Ingrese el ID del libro:");
-    return Long.parseLong(input);
+    private long obtenerIdDesdeInput(String input) {
+    if (input == null || input.trim().isEmpty()) {
+        System.out.println("Error: El ID ingresado es nulo o vacío.");
+        return -1; 
+    }
+    
+    try {
+        return Long.parseLong(input);
+    } catch (NumberFormatException e) {
+        System.out.println("Error: El ID ingresado no es un número válido.");
+        return -1; 
+    }
 }
 
 private String obtenerTituloDesdeInput() {

@@ -7,21 +7,31 @@ package autonoma.BibliotecaApp.views;
 import autonoma.BibliotecaApp.models.Autor;
 import javax.swing.ImageIcon;
 import autonoma.BibliotecaApp.models.Libro;
+import autonoma.BibliotecaApp.models.Biblioteca;
 /**
  *
- * @author USUARIO
+ * @author  Heily Yohana Rios Ayala<heilyy.riosa@autonoma.edu.co>
+ * * 
+ * @version 1.0.0
+ * 
+ * @since 20250312
+ 
  */
 public class AgregarLibro extends javax.swing.JDialog {
+    private Biblioteca biblioteca;
 
     /**
      * Creates new form AgregarLibro
      */
-    public AgregarLibro(java.awt.Frame parent, boolean modal) {
+    public AgregarLibro(java.awt.Frame parent, boolean modal,Biblioteca biblioteca) {
         super(parent, modal);
         initComponents();
         setSize(650, 500);
         setResizable(false);
         this.setLocationRelativeTo(null);
+        
+        this.biblioteca = biblioteca;
+        
         try{ 
         this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/Biblioteca.png")).getImage());
         }catch(Exception e){
@@ -210,20 +220,29 @@ public class AgregarLibro extends javax.swing.JDialog {
     String idTexto = IdLibro.getText();
     String editorialTexto = editorial.getText(); 
 
+   
     if (titulo.isEmpty() || nombreAutorTexto.isEmpty() || idTexto.isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
         return;
     }
 
     try {
+        
         long id = Long.parseLong(idTexto);
 
+       
         if (id <= 0) {
             javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número positivo.");
             return;
         }
 
-   
+        
+        if (biblioteca.obtenerLibroPorId(id) != null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Ya existe un libro con este ID.");
+            return;
+        }
+
+        
         Autor autor = new Autor(
             editorialTexto.isEmpty() ? "Editorial Desconocida" : editorialTexto, 
             "Escritor",               
@@ -232,14 +251,23 @@ public class AgregarLibro extends javax.swing.JDialog {
             "autor@example.com"       
         );
 
-       
+      
         Libro nuevoLibro = new Libro(id, titulo, autor);
-        System.out.println("Libro guardado: " + nuevoLibro.getTitulo() + " - " + nuevoLibro.getId());
-
-        this.dispose();
         
+       
+        if (biblioteca != null) {
+            biblioteca.agregarLibro(nuevoLibro.getId(), nuevoLibro.getTitulo(), nuevoLibro.getAutor());
+            javax.swing.JOptionPane.showMessageDialog(this, "Libro agregado con éxito.");
+            System.out.println("Libro guardado: " + nuevoLibro.getTitulo() + " - " + nuevoLibro.getId());
+        } else {
+            System.out.println("Error: La biblioteca no está inicializada.");
+        }
+
+        
+        this.dispose();
+
     } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un numero válido.");
+        javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.");
     }
     }//GEN-LAST:event_btnAceptarActionPerformed
 

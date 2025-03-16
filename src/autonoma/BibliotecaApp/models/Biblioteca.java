@@ -34,10 +34,16 @@ public class Biblioteca {
     
     if (id < 0) {
         System.out.println("Error: El ID no puede ser negativo.");
-        return false;  
+        return false;
     }
-    
-    Libro libro1 = new Libro(id, titulo,autor);
+
+   
+    if (obtenerLibroPorId(id) != null) {
+        System.out.println("Error: Ya existe un libro con ese ID.");
+        return false;
+    }
+
+    Libro libro1 = new Libro(id, titulo, autor);
     libros.add(libro1);
     return true;
     
@@ -58,21 +64,12 @@ public class Biblioteca {
      * @return 
      */
     public String buscarLibro(long id){
-        String resultado = "";
-        //boolean resultadoo = false;
-        
-        for(Libro libro: libros){
-        
-            if (id == libro.getId()){
-            
-             resultado += libro.getTitulo();
-             
-                //resultadoo = true;
-            }
-        
+        for (Libro libro : libros) {
+        if (id == libro.getId()) {
+            return libro.getTitulo(); 
         }
-            
-        return resultado;
+    }
+    return "Libro no encontrado"; 
         
     
     
@@ -83,19 +80,13 @@ public class Biblioteca {
      * @return 
      */
     public boolean eliminarLibro(long id){
-        boolean resultado = false;
-        for(Libro libro: libros){
-            if (id == libro.getId()){
-                
-                libros.remove(libro);
-                resultado = true;
-            }
-                    
+       for (int i = 0; i < libros.size(); i++) {
+        if (libros.get(i).getId() == id) {
+            libros.remove(i);
+            return true;
         }
-    
-    
-    
-     return resultado;
+    }
+    return false;
     }
     
     /**
@@ -113,12 +104,13 @@ public class Biblioteca {
          if (id == libro.getId()){
          
              libro.setTitulo(titulo);
+             return true;
          }
      
      }
     
      
-     return resultado;
+     return false;
     }
     
     /**
@@ -143,9 +135,9 @@ public class Biblioteca {
 metodo para ordenar los libros en orden alfabetico usando el metodo bubble sort
 */
 public ArrayList<Libro> obtenerLibrosAlfabeticamente() {
-    ArrayList<Libro> listaOrdenada = new ArrayList<>(libros);
-
+    ArrayList<Libro> listaOrdenada = new ArrayList<>(libros); // Crear una copia para no modificar la original
     int n = listaOrdenada.size();
+    
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
             if (listaOrdenada.get(j).getTitulo().compareTo(listaOrdenada.get(j + 1).getTitulo()) > 0) {
@@ -156,8 +148,20 @@ public ArrayList<Libro> obtenerLibrosAlfabeticamente() {
             }
         }
     }
-
     return listaOrdenada;
+}
+
+public ArrayList<Libro> obtenerTodosLosLibros() {
+    return new ArrayList<>(libros); 
+}
+
+public Libro obtenerLibroPorId(long id) {
+    for (Libro libro : libros) {
+        if (libro.getId() == id) {
+            return libro; 
+        }
+    }
+    return null;
 }
 
     /*

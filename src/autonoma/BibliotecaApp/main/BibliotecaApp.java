@@ -1,6 +1,8 @@
 
 package autonoma.BibliotecaApp.main;
+
 import autonoma.BibliotecaApp.views.VentanaPrincipal;
+import autonoma.BibliotecaApp.models.Biblioteca;
 /**
  *
  * @author Heily Yohana Rios Ayala 
@@ -13,8 +15,10 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         
        
+        Biblioteca biblioteca = new Biblioteca();
 
-        VentanaPrincipal ventana = new VentanaPrincipal();
+        
+        VentanaPrincipal ventana = new VentanaPrincipal(biblioteca);
         ventana.setVisible(true);
     }
 }

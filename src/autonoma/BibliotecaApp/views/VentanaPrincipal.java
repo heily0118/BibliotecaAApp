@@ -7,25 +7,30 @@ package autonoma.BibliotecaApp.views;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import autonoma.BibliotecaApp.models.Biblioteca;
 
 /**
  *
- * @author Heily Yohana Rios Ayala
+ * @author Heily Yohana Rios Ayala<heilyy.riosa@autonoma.edu.co>
  * 
  * @version 1.0.0
  * 
  * @since 20250312
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-
+     private Biblioteca biblioteca;
+     
     /**
      * Creates new form Principal
      */
-    public VentanaPrincipal() {
+    public VentanaPrincipal(Biblioteca biblioteca) {
         initComponents();
         setSize(600, 450);
         setResizable(false);
         this.setLocationRelativeTo(null);
+        
+       this.biblioteca = biblioteca;
+        
         try{ 
         this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/Biblioteca.png")).getImage());
         }catch(Exception e){
@@ -296,7 +301,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMostrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarMouseClicked
-       MostrarLibros ventanaMostrar = new MostrarLibros(this, true);
+       MostrarLibros ventanaMostrar = new MostrarLibros(this, true,biblioteca);
        ventanaMostrar.setVisible(true);
     }//GEN-LAST:event_btnMostrarMouseClicked
 
@@ -309,7 +314,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMostrarMouseExited
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
-       AgregarLibro ventanaAgregar = new AgregarLibro(this, true);
+       AgregarLibro ventanaAgregar = new AgregarLibro(this, true,biblioteca);
        ventanaAgregar.setVisible(true);
     }//GEN-LAST:event_btnAgregarMouseClicked
 
@@ -322,7 +327,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarMouseExited
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
-       BuscarLibro ventanaBuscar = new BuscarLibro(this, true);
+       BuscarLibro ventanaBuscar = new BuscarLibro(this, true,biblioteca);
        ventanaBuscar.setVisible(true);
     }//GEN-LAST:event_btnBuscarMouseClicked
 

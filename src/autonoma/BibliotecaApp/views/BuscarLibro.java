@@ -4,25 +4,35 @@
  */
 package autonoma.BibliotecaApp.views;
 
+import autonoma.BibliotecaApp.models.Biblioteca;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
  *
- * @author USUARIO
+ * @author Heily Yohana Rios Ayala<heilyy.riosa@autonoma.edu.co>
+ * * 
+ * @version 1.0.0
+ * 
+ * @since 20250312
  */
+ 
 public class BuscarLibro extends javax.swing.JDialog {
+     private Biblioteca biblioteca;
 
     /**
      * Creates new form BuscarLibro
      */
-    public BuscarLibro(java.awt.Frame parent, boolean modal) {
+    public BuscarLibro(java.awt.Frame parent, boolean modal,Biblioteca biblioteca) {
         super(parent, modal);
         initComponents();
         setSize(600, 450);
         setResizable(false);
         this.setLocationRelativeTo(null);
+        
+      this.biblioteca = biblioteca;
+        
         try{ 
         this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/Biblioteca.png")).getImage());
         }catch(Exception e){
