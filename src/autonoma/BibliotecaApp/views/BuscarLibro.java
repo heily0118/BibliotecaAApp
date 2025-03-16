@@ -10,6 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import autonoma.BibliotecaApp.models.Libro;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,8 +36,13 @@ public class BuscarLibro extends javax.swing.JDialog {
         setSize(700, 550);
         setResizable(false);
         this.setLocationRelativeTo(null);
+       
         inicializarComboBox();
+
         
+
+        
+       
         this.biblioteca = biblioteca;
         
         try{ 
@@ -80,8 +88,14 @@ public class BuscarLibro extends javax.swing.JDialog {
             }
         });
 
-        libroBuscar.setText("jTextField1");
+        libroBuscar.setForeground(new java.awt.Color(204, 204, 204));
+        libroBuscar.setText("Ingresa el ID del libro a buscar");
         libroBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        libroBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                libroBuscarMouseClicked(evt);
+            }
+        });
         libroBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 libroBuscarActionPerformed(evt);
@@ -233,7 +247,7 @@ public class BuscarLibro extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnOpcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -303,34 +317,48 @@ public class BuscarLibro extends javax.swing.JDialog {
     }//GEN-LAST:event_btnOpcionLibroActionPerformed
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
-       
-    long id = Long.parseLong(libroBuscar.getText());
-
+       String textoId = libroBuscar.getText().trim();
+    System.out.println("Texto en libroBuscar al hacer clic en Buscar: '" + textoId + "'");
     
-    Libro libro = biblioteca.obtenerLibroPorId(id);
+    if (textoId.equals("Ingresa el ID del libro a buscar")) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingresa un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-    if (libro != null) {
-        
+
+    try {
+        long id = Long.parseLong(textoId);
+        Libro libro = biblioteca.obtenerLibroPorId(id);
+
         DefaultTableModel modelo = (DefaultTableModel) LisLibros.getModel();
-        
-      
-        modelo.setRowCount(0);
+        modelo.setRowCount(0); 
 
-        
-        modelo.addRow(new Object[]{
-            libro.getTitulo(),
-            libro.getId(),
-            libro.getAutor().getNombre(), 
-            libro.getAutor().getEditorial() 
-        });
-    } else {
-        JOptionPane.showMessageDialog(this, "Libro no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+        if (libro != null) {
+            modelo.addRow(new Object[]{
+                libro.getTitulo(),
+                libro.getId(),
+                libro.getAutor().getNombre(), 
+                libro.getAutor().getEditorial()
+            });
+        } else {
+            JOptionPane.showMessageDialog(this, "Libro no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void libroBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_libroBuscarActionPerformed
-        // TODO add your handling code here:
+        
+
     }//GEN-LAST:event_libroBuscarActionPerformed
+
+    private void libroBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_libroBuscarMouseClicked
+        if (libroBuscar.getText().equals("Ingresa el ID del libro a buscar")) {
+        libroBuscar.setText("");
+        libroBuscar.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_libroBuscarMouseClicked
     private void mouseEntered(JPanel panel){
         panel.setBackground(new Color(200,255,255));
         
@@ -346,6 +374,8 @@ public class BuscarLibro extends javax.swing.JDialog {
 
     btnOpcionLibro.setSelectedIndex(0); 
 }
+ 
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable LisLibros;
