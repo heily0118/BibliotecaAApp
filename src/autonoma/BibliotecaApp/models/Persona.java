@@ -8,6 +8,12 @@ package autonoma.BibliotecaApp.models;
  * @version 1.0.0
  */
 public abstract class Persona {
+    /**
+     * 
+     * nombre
+     * documento de identidad
+     * correo electronico
+     */
     
     private String nombre;
     private String documentoIdentidad;

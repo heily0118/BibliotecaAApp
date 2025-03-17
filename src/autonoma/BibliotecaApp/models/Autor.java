@@ -9,6 +9,11 @@ package autonoma.BibliotecaApp.models;
  */
 
 public class Autor extends Persona {
+    /**
+     * 
+     * nombre editorial
+     * profesion autor
+     */
     private String editorial;
     private String profesion;
 
