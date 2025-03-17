@@ -43,7 +43,8 @@ public class BuscarLibro extends javax.swing.JDialog {
          
         try{ 
         this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/Biblioteca.png")).getImage());
-        }catch(Exception e){
+        }catch(NullPointerException e){
+             System.out.println("Imagen no encontrada");
             
         }
          LisLibros.setSelectionBackground(new Color(173, 216, 230)); 
