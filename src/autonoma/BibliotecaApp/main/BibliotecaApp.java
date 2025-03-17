@@ -20,5 +20,6 @@ public class BibliotecaApp {
         
         VentanaPrincipal ventana = new VentanaPrincipal(biblioteca);
         ventana.setVisible(true);
+        
     }
 }

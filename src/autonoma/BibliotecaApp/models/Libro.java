@@ -11,11 +11,16 @@ public class Libro {
     private long id;
     private String titulo;
     private Autor autor;
+    private static int contadorLibros = 0;
 
     public Libro(long id, String titulo, Autor autor) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
+    }
+    public Libro(){
+        Libro.contadorLibros ++;
+        this.id = Libro.contadorLibros;
     }
     public Libro(String titulo, Autor autor) {
     this.titulo = titulo;
@@ -27,10 +32,10 @@ public class Libro {
         return id;
     }
 
-    public void setId(long id) {
+    /*public void setId(long id) {
         this.id = id;
     }
-
+    */
     public String getTitulo() {
         return titulo;
     }
