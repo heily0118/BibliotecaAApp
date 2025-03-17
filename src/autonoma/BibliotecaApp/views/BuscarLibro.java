@@ -390,7 +390,7 @@ public class BuscarLibro extends javax.swing.JDialog {
         long id = Long.parseLong(textoId);
         Libro libro = biblioteca.obtenerLibroPorId(id);
         if (libro == null) {
-            JOptionPane.showMessageDialog(this, "El libro con ID " + textoId + " ya ha sido eliminado.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El libro con ID " + textoId + " No se encunetra en nuentra biblioteca.", "Error", JOptionPane.ERROR_MESSAGE);
             libroBuscar.setText(""); 
             return;
         }

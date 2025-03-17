@@ -319,7 +319,11 @@ public class MostrarLibros extends javax.swing.JDialog {
             break;
 
         case "Ordenar A-Z":
-            
+            if (ListLibros.getRowCount() == 0) {
+               JOptionPane.showMessageDialog(this, "No hay libros en la biblioteca para ordenar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+               return;
+              }
+
             ArrayList<Libro> librosOrdenados = biblioteca.obtenerLibrosAlfabeticamente();
             actualizarTabla(librosOrdenados); 
                
