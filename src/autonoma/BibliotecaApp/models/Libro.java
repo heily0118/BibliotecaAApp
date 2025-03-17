@@ -7,7 +7,14 @@ package autonoma.BibliotecaApp.models;
  * @version 1.0.0
  * @since 20250312
  */
-public class Libro {        
+public class Libro {     
+    /**
+     * 
+     * id del libro
+     * titulo del libro
+     * autor del libro
+     * contador de libros
+     */
     private long id;
     private String titulo;
     private Autor autor;
