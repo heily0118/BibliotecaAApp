@@ -85,7 +85,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(700, 550));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51), 2));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("¡Bienvendio a la gestion de biblioteca!");
@@ -252,7 +252,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(130, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel3.setBackground(new java.awt.Color(87, 182, 231));
 
         jLabel1.setFont(new java.awt.Font("Goudy Old Style", 1, 48)); // NOI18N
         jLabel1.setText("  Biblioteca");
@@ -274,7 +274,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel2.setBackground(new java.awt.Color(253, 253, 173));
 
         cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/cerrar.png"))); // NOI18N
         cerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -284,7 +284,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Goudy Old Style", 1, 48)); // NOI18N
-        jLabel3.setText("Siempre contigo");
+        jLabel3.setText("Autónoma");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -307,7 +307,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

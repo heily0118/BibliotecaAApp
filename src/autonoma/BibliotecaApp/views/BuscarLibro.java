@@ -46,6 +46,9 @@ public class BuscarLibro extends javax.swing.JDialog {
         }catch(Exception e){
             
         }
+         LisLibros.setSelectionBackground(new Color(173, 216, 230)); 
+         LisLibros.setSelectionForeground(Color.WHITE);
+
        
     }
 
@@ -76,8 +79,8 @@ public class BuscarLibro extends javax.swing.JDialog {
         setPreferredSize(new java.awt.Dimension(650, 500));
         setSize(new java.awt.Dimension(650, 500));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(228, 126, 24), 2));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 199));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51), 2));
 
         cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/cerrar.png"))); // NOI18N
         cerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +103,7 @@ public class BuscarLibro extends javax.swing.JDialog {
             }
         });
 
-        btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setBackground(new java.awt.Color(255, 255, 199));
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnBuscarMouseClicked(evt);
@@ -152,7 +155,7 @@ public class BuscarLibro extends javax.swing.JDialog {
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(221, 130, 38), 2));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51), 2));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));

@@ -44,6 +44,8 @@ public class MostrarLibros extends javax.swing.JDialog {
         }catch(Exception e){
             
         }
+        ListLibros.setSelectionBackground(new Color(173, 216, 230)); 
+        ListLibros.setSelectionForeground(Color.WHITE);
         actualizarTabla(biblioteca.obtenerTodosLosLibros());
     }
 
@@ -73,8 +75,8 @@ public class MostrarLibros extends javax.swing.JDialog {
         setResizable(false);
         setSize(new java.awt.Dimension(700, 550));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 102, 0), 2));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 199));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51), 2));
 
         jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 36)); // NOI18N
         jLabel1.setText("Libros registrados");
@@ -111,7 +113,7 @@ public class MostrarLibros extends javax.swing.JDialog {
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 102, 0), 2));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51), 2));
 
         btnAceptar.setBackground(new java.awt.Color(0, 102, 51));
         btnAceptar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N

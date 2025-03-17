@@ -68,8 +68,8 @@ public class AgregarLibro extends javax.swing.JDialog {
         setPreferredSize(new java.awt.Dimension(700, 550));
         setSize(new java.awt.Dimension(700, 550));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(210, 114, 18), 2));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 199));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51), 2));
 
         cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/cerrar.png"))); // NOI18N
         cerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +79,7 @@ public class AgregarLibro extends javax.swing.JDialog {
         });
 
         jLabel3.setFont(new java.awt.Font("Arial Narrow", 1, 36)); // NOI18N
-        jLabel3.setText("Informacion libro");
+        jLabel3.setText("Información libro");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,7 +105,7 @@ public class AgregarLibro extends javax.swing.JDialog {
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(199, 114, 30), 2));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
