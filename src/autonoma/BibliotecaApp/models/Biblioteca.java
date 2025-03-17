@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class Biblioteca {
     /**
      * 
+     * arreglo de libros
      */
     private ArrayList <Libro> libros = new ArrayList<>();
     
