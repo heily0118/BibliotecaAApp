@@ -63,7 +63,7 @@ public class AgregarLibro extends javax.swing.JDialog {
         setFocusable(false);
         setSize(new java.awt.Dimension(700, 550));
 
-        jPanel1.setBackground(new java.awt.Color(204, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51), 2));
 
         cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/cerrar.png"))); // NOI18N
@@ -74,7 +74,6 @@ public class AgregarLibro extends javax.swing.JDialog {
         });
 
         jLabel3.setFont(new java.awt.Font("Arial Narrow", 1, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Información libro");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
