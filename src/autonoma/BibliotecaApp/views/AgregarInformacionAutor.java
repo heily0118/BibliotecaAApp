@@ -66,7 +66,6 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         profesion = new javax.swing.JTextField();
         btnAceptar = new javax.swing.JToggleButton();
-        btnAtras = new javax.swing.JToggleButton();
         jLabel6 = new javax.swing.JLabel();
         editorial = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -152,16 +151,6 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
             }
         });
 
-        btnAtras.setBackground(new java.awt.Color(204, 51, 0));
-        btnAtras.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnAtras.setForeground(new java.awt.Color(255, 255, 255));
-        btnAtras.setText("Atras");
-        btnAtras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtrasActionPerformed(evt);
-            }
-        });
-
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Ingresa la profesion:");
@@ -203,12 +192,6 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAceptar)
-                .addGap(106, 106, 106))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -224,6 +207,10 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
                     .addComponent(documentoIdentidad)
                     .addComponent(correoElectronico))
                 .addGap(46, 46, 46))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(257, 257, 257)
+                .addComponent(btnAceptar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,14 +235,9 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(correoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnAtras)
-                        .addGap(62, 62, 62))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnAceptar)
-                        .addGap(71, 71, 71))))
+                .addGap(92, 92, 92)
+                .addComponent(btnAceptar)
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -338,10 +320,6 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
         System.exit(0);
     }//GEN-LAST:event_cerrarActionPerformed
 
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnAtrasActionPerformed
-
     private void editorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editorialActionPerformed
@@ -359,7 +337,6 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnAceptar;
-    private javax.swing.JToggleButton btnAtras;
     private javax.swing.JToggleButton cerrar;
     private javax.swing.JTextField correoElectronico;
     private javax.swing.JTextField documentoIdentidad;

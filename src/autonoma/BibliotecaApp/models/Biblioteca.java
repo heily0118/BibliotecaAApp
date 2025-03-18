@@ -166,6 +166,15 @@ public Autor obtenerAutorPorDocumento(long documento) {
 public void agregarAutor(Autor autor) {
     listaAutores.add(autor);
 }
+public Autor obtenerAutorPorIdLibro(long idLibro) {
+    for (Libro libro : libros) {
+        if (libro.getId() == idLibro) {
+            return libro.getAutor();
+        }
+    }
+    return null;
+}
+
 
     /*
     PRUEBAS DE FUNCIONAMIENTO

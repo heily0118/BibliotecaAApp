@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import autonoma.BibliotecaApp.models.Autor;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 /**
  *
  * @author Heily Yohana Rios Ayala<heilyy.riosa@autonoma.edu.co>
@@ -73,6 +75,7 @@ public class BuscarLibro extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         LisLibros = new javax.swing.JTable();
         btnAtras = new javax.swing.JToggleButton();
+        detalles = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSize(new java.awt.Dimension(650, 500));
@@ -133,7 +136,7 @@ public class BuscarLibro extends javax.swing.JDialog {
                 .addComponent(libroBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -207,6 +210,16 @@ public class BuscarLibro extends javax.swing.JDialog {
             }
         });
 
+        detalles.setBackground(new java.awt.Color(102, 153, 255));
+        detalles.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        detalles.setForeground(new java.awt.Color(255, 255, 255));
+        detalles.setText("Detalles autor");
+        detalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                detallesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -218,14 +231,21 @@ public class BuscarLibro extends javax.swing.JDialog {
                         .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(detalles)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(detalles)))
                 .addGap(187, 187, 187)
                 .addComponent(btnAtras)
                 .addContainerGap(30, Short.MAX_VALUE))
@@ -294,6 +314,34 @@ public class BuscarLibro extends javax.swing.JDialog {
         libroBuscar.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_libroBuscarMouseClicked
+
+    private void detallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detallesActionPerformed
+        int filaSeleccionada = LisLibros.getSelectedRow();
+    if (filaSeleccionada != -1) {
+        long idLibro = (long) LisLibros.getValueAt(filaSeleccionada, 1);// Obtén el ID del libro
+        Autor autorSeleccionado = biblioteca.obtenerAutorPorIdLibro(idLibro); // Busca el autor asociado a ese libro
+        String nombreAutor = autorSeleccionado.getNombre();
+        String correoAutor = autorSeleccionado.getCorreoElectronico();
+
+        
+        JDialog ventanaDetalles = new JDialog(this, "Detalles del Autor", true);
+        JLabel lblNombre = new JLabel("Nombre: " + autorSeleccionado.getNombre());
+        JLabel lblCorreo = new JLabel("Correo: " + autorSeleccionado.getCorreoElectronico());
+        JLabel lblProfesion = new JLabel("Profecion: " + autorSeleccionado.getProfesion());
+        JLabel lblDocumento = new JLabel("Documento identidad: " + autorSeleccionado.getDocumentoIdentidad());
+        
+        ventanaDetalles.add(lblNombre);
+        ventanaDetalles.add(lblCorreo);
+        ventanaDetalles.add(lblProfesion);
+        ventanaDetalles.add(lblDocumento);
+        
+        ventanaDetalles.setSize(700, 550);
+        ventanaDetalles.setLocationRelativeTo(this);
+        ventanaDetalles.setVisible(true);
+        
+           }
+
+    }//GEN-LAST:event_detallesActionPerformed
     private void mouseEntered(JPanel panel){
         panel.setBackground(new Color(200,255,255));
         
@@ -345,6 +393,7 @@ private String obtenerEditorialAutorDesdeInput() {
     private javax.swing.JPanel btnBuscar;
     private javax.swing.JLabel buscar;
     private javax.swing.JToggleButton cerrar;
+    private javax.swing.JToggleButton detalles;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
