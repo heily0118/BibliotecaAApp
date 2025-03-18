@@ -267,21 +267,21 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
     }//GEN-LAST:event_profesionActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        String nombre = nombreAutor.getText().trim();
+    String nombre = nombreAutor.getText().trim();
     String profesionAutor = profesion.getText().trim();
     String editorialLibro = editorial.getText().trim();
     String numeroIdentidad = documentoIdentidad.getText().trim();
     String correo = correoElectronico.getText().trim();
 
-    // Verificar que todos los campos estén llenos
+    
     if (nombre.isEmpty() || profesionAutor.isEmpty() || editorialLibro.isEmpty() || 
-        numeroIdentidad.isEmpty() || correo.isEmpty()) {
+         numeroIdentidad.isEmpty() || correo.isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
         return;
     }
 
     try {
-        // Validar que el documento de identidad sea un número positivo
+        
         long documento = Long.parseLong(numeroIdentidad);
         if (documento <= 0) {
             javax.swing.JOptionPane.showMessageDialog(this, "El documento de identidad debe ser un número positivo.");

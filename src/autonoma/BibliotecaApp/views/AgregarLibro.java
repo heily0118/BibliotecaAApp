@@ -8,6 +8,7 @@ import autonoma.BibliotecaApp.models.Autor;
 import javax.swing.ImageIcon;
 import autonoma.BibliotecaApp.models.Libro;
 import autonoma.BibliotecaApp.models.Biblioteca;
+import autonoma.BibliotecaApp.views.AgregarInformacionAutor;
 /**
  *
  * @author  Heily Yohana Rios Ayala <heilyy.riosa@autonoma.edu.co>
@@ -197,39 +198,37 @@ public class AgregarLibro extends javax.swing.JDialog {
         return;
     }
 
+    
     try {
-        
-        long id = Long.parseLong(idTexto);
-
-       
+        long id = Long.parseLong(id);
         if (id <= 0) {
-            javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número positivo.");
+            javax.swing.JOptionPane.showMessageDialog(this, "El ID del libro debe ser un número positivo.");
             return;
         }
 
-        
         if (biblioteca.obtenerLibroPorId(id) != null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Ya existe un libro con este ID.");
             return;
         }
 
         
+        AgregarInformacionAutor ventanaInformacionAutor = new AgregarInformacionAutor((java.awt.Window) this, true,autor, biblioteca);
+        ventanaInformacionAutor.setVisible(true);
 
-      
-        Libro nuevoLibro = new Libro(id, titulo, autor);
         
-       
-        if (biblioteca != null) {
-            biblioteca.agregarLibro(nuevoLibro.getId(), nuevoLibro.getTitulo(), nuevoLibro.getAutor());
+        Autor autorSeleccionado = ventanaInformacionAutor.getAutor(); 
+        if (autorSeleccionado != null) {
+           
+            Libro nuevoLibro = new Libro(id, titulo, autorSeleccionado);
+            biblioteca.agregarLibro(titulo, autorSeleccionado);
+
             javax.swing.JOptionPane.showMessageDialog(this, "Libro agregado con éxito.");
             System.out.println("Libro guardado: " + nuevoLibro.getTitulo() + " - " + nuevoLibro.getId());
         } else {
-            System.out.println("Error: La biblioteca no está inicializada.");
+            javax.swing.JOptionPane.showMessageDialog(this, "El libro no se guardó porque no se ingresó un autor.");
         }
 
-        
         this.dispose();
-
     } catch (NumberFormatException e) {
         javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.");
     }

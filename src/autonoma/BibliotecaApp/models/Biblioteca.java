@@ -31,7 +31,8 @@ public class Biblioteca {
      * @return : Se retorna un booleano
      */
     public boolean agregarLibro(String titulo, Autor autor){
-        Libro libro = new Libro(titulo, autor); // El ID se asigna automáticamente en la clase Libro
+        long nuevoId = libros.size() + 1;
+        Libro libro = new Libro(nuevoId,titulo, autor); 
         libros.add(libro);
         return true;
     }        

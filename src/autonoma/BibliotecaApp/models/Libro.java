@@ -20,12 +20,11 @@ public class Libro {
     private Autor autor;
     private static int contadorLibros = 0;
 
-    public Libro( String titulo, Autor autor) {
-        Libro.contadorLibros++;
-        this.id = Libro.contadorLibros;
-        this.titulo = titulo;
-        this.autor = autor;
-    }
+    public Libro(long id, String titulo, Autor autor) {
+    this.id = id;
+    this.titulo = titulo;
+    this.autor = autor;
+}
 
     public long getId() {
         return id;
@@ -55,7 +54,8 @@ public class Libro {
     *@return 
     *@param id y titulo
     */
-    public String toString() {
-        return "Libro{id=" + id + ", titulo='" + titulo + "'}";
-    }
+   @Override
+public String toString() {
+    return "Libro{id=" + id + ", titulo='" + titulo + "', autor='" + autor.getNombre() + "'}";
+}
 }
