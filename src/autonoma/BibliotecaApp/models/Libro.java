@@ -20,7 +20,7 @@ public class Libro {
     private Autor autor;
     private static int contadorLibros = 0;
 
-    public Libro(long id, String titulo, Autor autor) {
+    public Libro( String titulo, Autor autor) {
     this.id = ++contadorLibros; ;
     this.titulo = titulo;
     this.autor = autor;

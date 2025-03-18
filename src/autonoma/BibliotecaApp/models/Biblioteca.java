@@ -31,11 +31,11 @@ public class Biblioteca {
      * @param titulo
      * @return : Se retorna un booleano
      */
-    public boolean agregarLibro(String titulo, Autor autor){
-        long nuevoId = libros.size() + 1;
-        Libro libro = new Libro(nuevoId,titulo, autor); 
+    public long agregarLibro(String titulo, Autor autor){
+        
+        Libro libro = new Libro(titulo, autor); 
         libros.add(libro);
-        return true;
+        return libro.getId();
     }        
 
     public ArrayList<Libro> getLibros() {
