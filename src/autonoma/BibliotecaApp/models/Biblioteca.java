@@ -22,7 +22,6 @@ public class Biblioteca {
     private ArrayList <Libro> libros = new ArrayList<>();
     
     public Biblioteca(){
-    
     }
     
     /**
@@ -31,24 +30,11 @@ public class Biblioteca {
      * @param titulo
      * @return : Se retorna un booleano
      */
-    public boolean agregarLibro(long id, String titulo, Autor autor){
-    
-    if (id < 0) {
-        System.out.println("Error: El ID no puede ser negativo.");
-        return false;
-    }
-
-   
-    if (obtenerLibroPorId(id) != null) {
-        System.out.println("Error: Ya existe un libro con ese ID.");
-        return false;
-    }
-
-    Libro libro1 = new Libro(id, titulo, autor);
-    libros.add(libro1);
-    return true;
-    
-    }
+    public boolean agregarLibro(String titulo, Autor autor){
+        Libro libro = new Libro(titulo, autor); // El ID se asigna automáticamente en la clase Libro
+        libros.add(libro);
+        return true;
+    }        
 
     public ArrayList<Libro> getLibros() {
         return libros;

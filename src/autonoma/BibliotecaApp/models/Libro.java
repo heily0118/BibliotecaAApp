@@ -20,20 +20,12 @@ public class Libro {
     private Autor autor;
     private static int contadorLibros = 0;
 
-    public Libro(long id, String titulo, Autor autor) {
-        this.id = id;
+    public Libro( String titulo, Autor autor) {
+        Libro.contadorLibros++;
+        this.id = Libro.contadorLibros;
         this.titulo = titulo;
         this.autor = autor;
     }
-    public Libro(){
-        Libro.contadorLibros ++;
-        this.id = Libro.contadorLibros;
-    }
-    public Libro(String titulo, Autor autor) {
-    this.titulo = titulo;
-    this.autor = autor;
-}
-
 
     public long getId() {
         return id;
