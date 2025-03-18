@@ -16,6 +16,11 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import autonoma.BibliotecaApp.models.Autor;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 /**
@@ -170,14 +175,14 @@ public class BuscarLibro extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Titulo", "ID", "Autor", "Editorial"
+                "Titulo", "ID", "Autor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -195,7 +200,6 @@ public class BuscarLibro extends javax.swing.JDialog {
             LisLibros.getColumnModel().getColumn(0).setResizable(false);
             LisLibros.getColumnModel().getColumn(1).setResizable(false);
             LisLibros.getColumnModel().getColumn(2).setResizable(false);
-            LisLibros.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jScrollPane1.setViewportView(jScrollPane2);
@@ -294,7 +298,7 @@ public class BuscarLibro extends javax.swing.JDialog {
             libroBuscar.setText(""); 
             return;
         }
-        modelo.addRow(new Object[]{ libro.getTitulo(), libro.getId(), libro.getAutor().getNombre(), libro.getAutor().getEditorial() });
+        modelo.addRow(new Object[]{ libro.getTitulo(), libro.getId(), libro.getAutor().getNombre() });
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -316,30 +320,75 @@ public class BuscarLibro extends javax.swing.JDialog {
     }//GEN-LAST:event_libroBuscarMouseClicked
 
     private void detallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detallesActionPerformed
-        int filaSeleccionada = LisLibros.getSelectedRow();
-    if (filaSeleccionada != -1) {
-        long idLibro = (long) LisLibros.getValueAt(filaSeleccionada, 1);// Obtén el ID del libro
-        Autor autorSeleccionado = biblioteca.obtenerAutorPorIdLibro(idLibro); // Busca el autor asociado a ese libro
-        String nombreAutor = autorSeleccionado.getNombre();
-        String correoAutor = autorSeleccionado.getCorreoElectronico();
-
+    int filaSeleccionada = LisLibros.getSelectedRow();
+    
+    
+    if (filaSeleccionada == -1) {
+       
+        JOptionPane.showMessageDialog(
+            this,
+            "Debe seleccionar un libro primero",
+            "Error",
+            JOptionPane.WARNING_MESSAGE
+        );
+        return; 
+    }
+    
+   
+    try {
+        long idLibro = (long) LisLibros.getValueAt(filaSeleccionada, 1); 
+        Autor autorSeleccionado = biblioteca.obtenerAutorPorIdLibro(idLibro); 
+        Libro libroSeleccionado = biblioteca.obtenerLibroPorId(idLibro);
         
         JDialog ventanaDetalles = new JDialog(this, "Detalles del Autor", true);
+        
+        
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); 
+        
         JLabel lblNombre = new JLabel("Nombre: " + autorSeleccionado.getNombre());
         JLabel lblCorreo = new JLabel("Correo: " + autorSeleccionado.getCorreoElectronico());
-        JLabel lblProfesion = new JLabel("Profecion: " + autorSeleccionado.getProfesion());
+        JLabel lblProfesion = new JLabel("Profesión: " + autorSeleccionado.getProfesion());
         JLabel lblDocumento = new JLabel("Documento identidad: " + autorSeleccionado.getDocumentoIdentidad());
+        JLabel lblEditorial = new JLabel("Editorial: " + autorSeleccionado.getEditorial());
         
-        ventanaDetalles.add(lblNombre);
-        ventanaDetalles.add(lblCorreo);
-        ventanaDetalles.add(lblProfesion);
-        ventanaDetalles.add(lblDocumento);
+        Font labelFont = new Font("Arial", Font.PLAIN, 14);
+        lblNombre.setFont(labelFont);
+        lblCorreo.setFont(labelFont);
+        lblProfesion.setFont(labelFont);
+        lblDocumento.setFont(labelFont);
+        lblEditorial.setFont(labelFont);
+        
+       
+        panel.add(lblNombre);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        panel.add(lblCorreo);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        panel.add(lblProfesion);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        panel.add(lblDocumento);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        panel.add(lblEditorial);
+        
+       
+        ventanaDetalles.add(panel);
         
         ventanaDetalles.setSize(700, 550);
         ventanaDetalles.setLocationRelativeTo(this);
         ventanaDetalles.setVisible(true);
+    } catch (Exception e) {
         
-           }
+        JOptionPane.showMessageDialog(
+            this,
+            "Error al obtener los detalles: " + e.getMessage(),
+            "Error",
+            JOptionPane.ERROR_MESSAGE
+        );
+        
+    }
+
+
 
     }//GEN-LAST:event_detallesActionPerformed
     private void mouseEntered(JPanel panel){
@@ -355,7 +404,7 @@ public class BuscarLibro extends javax.swing.JDialog {
      DefaultTableModel modelo = (DefaultTableModel) LisLibros.getModel();
     modelo.setRowCount(0);
     for (Libro libro : libros) {
-        modelo.addRow(new Object[]{libro.getTitulo(), libro.getId(), libro.getAutor().getNombre(), libro.getAutor().getEditorial()});
+        modelo.addRow(new Object[]{libro.getTitulo(), libro.getId(), libro.getAutor().getNombre()});
     
  
 

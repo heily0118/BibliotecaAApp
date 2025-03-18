@@ -8,8 +8,15 @@ import autonoma.BibliotecaApp.models.Biblioteca;
 import autonoma.BibliotecaApp.models.Libro;
 import autonoma.BibliotecaApp.models.Autor;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -69,6 +76,7 @@ public class MostrarLibros extends javax.swing.JDialog {
         ListLibros = new javax.swing.JTable();
         btnAtras = new javax.swing.JToggleButton();
         btnOpcionLibro = new javax.swing.JComboBox<>();
+        detalles = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setFocusable(false);
@@ -182,6 +190,16 @@ public class MostrarLibros extends javax.swing.JDialog {
             }
         });
 
+        detalles.setBackground(new java.awt.Color(102, 153, 255));
+        detalles.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        detalles.setForeground(new java.awt.Color(255, 255, 255));
+        detalles.setText("Detalles autor");
+        detalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                detallesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -190,13 +208,15 @@ public class MostrarLibros extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(btnOpcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(detalles)
+                            .addComponent(btnOpcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(282, 282, 282)
                         .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 33, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +224,9 @@ public class MostrarLibros extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(btnOpcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnOpcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(detalles))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -341,6 +363,79 @@ public class MostrarLibros extends javax.swing.JDialog {
 
                               
     }//GEN-LAST:event_btnOpcionLibroActionPerformed
+
+    private void detallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detallesActionPerformed
+      int filaSeleccionada = ListLibros.getSelectedRow();
+    
+    
+    if (filaSeleccionada == -1) {
+       
+        JOptionPane.showMessageDialog(
+            this,
+            "Debe seleccionar un libro primero",
+            "Error",
+            JOptionPane.WARNING_MESSAGE
+        );
+        return; 
+    }
+    
+   
+    try {
+        long idLibro = (long) ListLibros.getValueAt(filaSeleccionada, 1); 
+        Autor autorSeleccionado = biblioteca.obtenerAutorPorIdLibro(idLibro); 
+        Libro libroSeleccionado = biblioteca.obtenerLibroPorId(idLibro);
+        
+        JDialog ventanaDetalles = new JDialog(this, "Detalles del Autor", true);
+        
+        
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); 
+        
+        JLabel lblNombre = new JLabel("Nombre: " + autorSeleccionado.getNombre());
+        JLabel lblCorreo = new JLabel("Correo: " + autorSeleccionado.getCorreoElectronico());
+        JLabel lblProfesion = new JLabel("Profesión: " + autorSeleccionado.getProfesion());
+        JLabel lblDocumento = new JLabel("Documento identidad: " + autorSeleccionado.getDocumentoIdentidad());
+        JLabel lblEditorial = new JLabel("Editorial: " + autorSeleccionado.getEditorial());
+        
+        Font labelFont = new Font("Arial", Font.PLAIN, 14);
+        lblNombre.setFont(labelFont);
+        lblCorreo.setFont(labelFont);
+        lblProfesion.setFont(labelFont);
+        lblDocumento.setFont(labelFont);
+        lblEditorial.setFont(labelFont);
+        
+       
+        panel.add(lblNombre);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        panel.add(lblCorreo);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        panel.add(lblProfesion);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        panel.add(lblDocumento);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        panel.add(lblEditorial);
+        
+       
+        ventanaDetalles.add(panel);
+        
+        ventanaDetalles.setSize(700, 550);
+        ventanaDetalles.setLocationRelativeTo(this);
+        ventanaDetalles.setVisible(true);
+    } catch (Exception e) {
+        
+        JOptionPane.showMessageDialog(
+            this,
+            "Error al obtener los detalles: " + e.getMessage(),
+            "Error",
+            JOptionPane.ERROR_MESSAGE
+        );
+        
+    }
+
+
+
+    }//GEN-LAST:event_detallesActionPerformed
     private void mouseEntered(JPanel panel){
         panel.setBackground(new Color(200,255,255));
         
@@ -414,6 +509,7 @@ private String obtenerProfesionDesdeInput() {
     private javax.swing.JToggleButton btnAtras;
     private javax.swing.JComboBox<String> btnOpcionLibro;
     private javax.swing.JToggleButton cerrar;
+    private javax.swing.JToggleButton detalles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -302,7 +302,7 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
 
          Autor nuevoAutor = new Autor(nombre, documento, correo, editorialLibro, profesionAutor);
           biblioteca.agregarAutor(nuevoAutor);
-          this.autor = nuevoAutor; // Actualiza la variable autor
+          this.autor = nuevoAutor; 
 
 
         javax.swing.JOptionPane.showMessageDialog(this, "Autor agregado con éxito.");
@@ -310,6 +310,10 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
 
         
         this.dispose(); 
+        if (this.getOwner() instanceof javax.swing.JDialog) {
+            javax.swing.JDialog ventanaAgregar = (javax.swing.JDialog) this.getOwner();
+            ventanaAgregar.dispose();
+        }
 
     } catch (NumberFormatException e) {
         javax.swing.JOptionPane.showMessageDialog(this, "El documento de identidad debe ser un número válido.");
