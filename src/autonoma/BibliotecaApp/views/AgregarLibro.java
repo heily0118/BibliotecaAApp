@@ -19,6 +19,7 @@ import autonoma.BibliotecaApp.views.AgregarInformacionAutor;
  
  */
 public class AgregarLibro extends javax.swing.JDialog {
+    private Autor autorSeleccionado;
     private Biblioteca biblioteca;
 
     /**
@@ -189,49 +190,27 @@ public class AgregarLibro extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-    String titulo = nombreLibro.getText();
- 
-
-   
-    if (titulo.isEmpty() || titulo.isEmpty() || titulo.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
+    String titulo = nombreLibro.getText().trim();
+    if (titulo.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingresa el título del libro.");
         return;
     }
+    biblioteca.agregarLibro(titulo, null);
+    Libro nuevoLibro = biblioteca.obtenerLibroPorId(biblioteca.getLibros().size());
+    AgregarInformacionAutor ventanaInformacionAutor = new AgregarInformacionAutor(this, true, id, titulo);
+    ventanaInformacionAutor.setVisible(true);
 
-    
-    try {
-        long id = Long.parseLong(id);
-        if (id <= 0) {
-            javax.swing.JOptionPane.showMessageDialog(this, "El ID del libro debe ser un número positivo.");
-            return;
-        }
-
-        if (biblioteca.obtenerLibroPorId(id) != null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Ya existe un libro con este ID.");
-            return;
-        }
-
-        
-        AgregarInformacionAutor ventanaInformacionAutor = new AgregarInformacionAutor((java.awt.Window) this, true,autor, biblioteca);
-        ventanaInformacionAutor.setVisible(true);
-
-        
-        Autor autorSeleccionado = ventanaInformacionAutor.getAutor(); 
-        if (autorSeleccionado != null) {
-           
-            Libro nuevoLibro = new Libro(id, titulo, autorSeleccionado);
-            biblioteca.agregarLibro(titulo, autorSeleccionado);
-
-            javax.swing.JOptionPane.showMessageDialog(this, "Libro agregado con éxito.");
-            System.out.println("Libro guardado: " + nuevoLibro.getTitulo() + " - " + nuevoLibro.getId());
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "El libro no se guardó porque no se ingresó un autor.");
-        }
-
-        this.dispose();
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.");
+    Autor autorSeleccionado = ventanaInformacionAutor.getAutor();
+    if (autorSeleccionado != null) {
+        nuevoLibro.setAutor(autorSeleccionado);
+        javax.swing.JOptionPane.showMessageDialog(this, "Libro agregado con éxito.");
+        System.out.println("Libro guardado: " + nuevoLibro.getTitulo() + " - ID: " + nuevoLibro.getId());
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "El libro no se guardó porque no se ingresó un autor.");
     }
+    this.dispose();
+}
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

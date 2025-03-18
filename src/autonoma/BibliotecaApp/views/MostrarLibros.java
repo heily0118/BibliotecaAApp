@@ -256,25 +256,48 @@ public class MostrarLibros extends javax.swing.JDialog {
     }
 
     switch (opcionSeleccionada) {
-        case "Actualizar":
+         case "Actualizar":
             int filaSeleccionada = ListLibros.getSelectedRow();
-           if (filaSeleccionada == -1) {
-             JOptionPane.showMessageDialog(this, "Por favor, selecciona un libro de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-              return;
-         }
-    long idLibro = Long.parseLong(ListLibros.getValueAt(filaSeleccionada, 1).toString());
-    String nuevoTitulo = obtenerTituloDesdeInput();
-    String nuevoNombreAutor = obtenerNombreAutorDesdeInput();
-    String nuevaEditorialAutor = obtenerEditorialAutorDesdeInput();
-    Autor autorActualizado = new Autor(nuevoNombreAutor, nuevaEditorialAutor);
-    Libro libroActualizado = new Libro(idLibro,nuevoTitulo, autorActualizado);
-    if (biblioteca.actualizarLibro(idLibro, libroActualizado)) {
-        JOptionPane.showMessageDialog(this, "Libro actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        actualizarTabla(biblioteca.obtenerTodosLosLibros());
-    } else {
-        JOptionPane.showMessageDialog(this, "No se encontró el libro para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    break;
+            if (filaSeleccionada == -1) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona un libro de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            
+            long idLibro = Long.parseLong(ListLibros.getValueAt(filaSeleccionada, 1).toString());
+
+           
+            Libro libroExistente = biblioteca.obtenerLibroPorId(idLibro);
+            if (libroExistente == null) {
+                JOptionPane.showMessageDialog(this, "No se encontró el libro en la biblioteca.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+           
+            String nuevoTitulo = obtenerTituloDesdeInput();
+            String nuevoNombreAutor = obtenerNombreAutorDesdeInput();
+            String nuevaEditorialAutor = obtenerEditorialAutorDesdeInput();
+            
+            long nuevaCedula = obtenerCedulaAutorDesdeInput();
+            String nuevoCorreo = obtenerCorreoDesdeInput();
+            String nuevaProfesion = obtenerProfesionDesdeInput(); 
+
+           Autor autorActualizado = new Autor(nuevoNombreAutor, nuevaCedula, nuevoCorreo, nuevaEditorialAutor, nuevaProfesion);
+
+            
+            libroExistente.setTitulo(nuevoTitulo);
+            libroExistente.setAutor(autorActualizado);
+
+            
+            if (biblioteca.actualizarLibro(idLibro, libroExistente)) {
+                JOptionPane.showMessageDialog(this, "Libro actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                actualizarTabla(biblioteca.obtenerTodosLosLibros());
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al actualizar el libro.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+    
+
 
 
 
@@ -326,11 +349,14 @@ public class MostrarLibros extends javax.swing.JDialog {
     private void actualizarTabla(ArrayList<Libro> libros) {
      DefaultTableModel modelo = (DefaultTableModel) ListLibros.getModel();
     modelo.setRowCount(0);
+
+    if (libros == null || libros.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No hay libros disponibles.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
+
     for (Libro libro : libros) {
         modelo.addRow(new Object[]{libro.getTitulo(), libro.getId(), libro.getAutor().getNombre(), libro.getAutor().getEditorial()});
-    
- 
-
     }
 }
     private long obtenerIdDesdeInput(String input) {
@@ -358,7 +384,18 @@ private String obtenerEditorialAutorDesdeInput() {
     return JOptionPane.showInputDialog("Ingrese la nueva editorial del autor:");
 }
 
+private long obtenerCedulaAutorDesdeInput() {
+    String input = JOptionPane.showInputDialog("Ingrese la cédula del autor:");
+    return Long.parseLong(input);
+}
 
+private String obtenerCorreoDesdeInput() {
+    return JOptionPane.showInputDialog("Ingrese el correo del autor:");
+}
+
+private String obtenerProfesionDesdeInput() {
+    return JOptionPane.showInputDialog("Ingrese la nueva profesión del autor:");
+}
 
    private void inicializarComboBox() {
     btnOpcionLibro.addItem("Selecciona una opción");

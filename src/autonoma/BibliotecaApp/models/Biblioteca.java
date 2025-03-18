@@ -20,6 +20,7 @@ public class Biblioteca {
      * arreglo de libros
      */
     private ArrayList <Libro> libros = new ArrayList<>();
+    private ArrayList<Autor> listaAutores = new ArrayList<>();
     
     public Biblioteca(){
     }
@@ -43,6 +44,14 @@ public class Biblioteca {
 
     public void setLibros(ArrayList<Libro> libros) {
         this.libros = libros;
+    }
+
+    public ArrayList<Autor> getListaAutores() {
+        return listaAutores;
+    }
+
+    public void setListaAutores(ArrayList<Autor> listaAutores) {
+        this.listaAutores = listaAutores;
     }
     
     
@@ -145,6 +154,17 @@ public Libro obtenerLibroPorId(long id) {
         }
     }
     return null;
+}
+public Autor obtenerAutorPorDocumento(long documento) {
+    for (Autor autor : listaAutores) {
+        if (autor.getDocumentoIdentidad() == documento) {
+            return autor;
+        }
+    }
+    return null;
+}
+public void agregarAutor(Autor autor) {
+    listaAutores.add(autor);
 }
 
     /*

@@ -16,10 +16,10 @@ public abstract class Persona {
      */
     
     private String nombre;
-    private String documentoIdentidad;
+    private long documentoIdentidad;
     private String correoElectronico;
     
-    public Persona(String nombre, String documentoIdentidad, String correoElectronico){
+    public Persona(String nombre, long documentoIdentidad, String correoElectronico){
         this. nombre = nombre;
         this.documentoIdentidad = documentoIdentidad;
         this.correoElectronico = correoElectronico;
@@ -34,11 +34,11 @@ public abstract class Persona {
         this.nombre = nombre;
     }
 
-    public String getDocumentoIdentidad() {
+    public long getDocumentoIdentidad() {
         return documentoIdentidad;
     }
 
-    public void setDocumentoIdentidad(String documentoIdentidad) {
+    public void setDocumentoIdentidad(long documentoIdentidad) {
         this.documentoIdentidad = documentoIdentidad;
     }
 

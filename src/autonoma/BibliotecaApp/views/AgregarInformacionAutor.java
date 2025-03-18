@@ -8,26 +8,29 @@ import autonoma.BibliotecaApp.models.Biblioteca;
 import autonoma.BibliotecaApp.models.Autor;
 import java.awt.Dialog;
 import javax.swing.ImageIcon;
+import autonoma.BibliotecaApp.models.Libro;
 
 /**
  *
  * @author USUARIO
  */
 public class AgregarInformacionAutor extends javax.swing.JDialog {
-       private Autor autor;
-       private Biblioteca biblioteca;
+       private long idLibro;
+        private String tituloLibro;
+
     /**
      * Creates new form AgregarInformacionAutor
      */
-    public AgregarInformacionAutor(java.awt.Window parent, boolean modal,Autor autor,Biblioteca biblioteca) {
+    public AgregarInformacionAutor(java.awt.Window parent, boolean modal, long idLibro, String tituloLibro) {
         super((Dialog)parent, modal);
         initComponents();
         setSize(700, 550);
         setResizable(false);
         this.setLocationRelativeTo(null);
         
-        this.autor = autor;
-        this.biblioteca = biblioteca;
+        this.idLibro = idLibro;
+        this.tituloLibro = tituloLibro;
+
         
         try{ 
         this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/Biblioteca.png")).getImage());
@@ -301,11 +304,11 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
         }
 
         
-        Autor nuevoAutor = new Autor(documento, nombre, profesionAutor, editorialLibro, correo);
+        Autor nuevoAutor = new Autor(nombre, documento, correo, editorialLibro, profesionAutor);
         biblioteca.agregarAutor(nuevoAutor);  
 
         javax.swing.JOptionPane.showMessageDialog(this, "Autor agregado con éxito.");
-        System.out.println("Autor guardado: " + nuevoAutor.getNombre() + " - Documento: " + nuevoAutor.getDocumento());
+        System.out.println("Autor guardado: " + nuevoAutor.getNombre() + " - Documento: " + nuevoAutor.getDocumentoIdentidad());
 
         
         this.dispose(); 
