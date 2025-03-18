@@ -5,6 +5,8 @@
 package autonoma.BibliotecaApp.views;
 
 import autonoma.BibliotecaApp.models.Biblioteca;
+import autonoma.BibliotecaApp.models.Autor;
+import java.awt.Dialog;
 import javax.swing.ImageIcon;
 
 /**
@@ -12,17 +14,19 @@ import javax.swing.ImageIcon;
  * @author USUARIO
  */
 public class AgregarInformacionAutor extends javax.swing.JDialog {
+       private Autor autor;
        private Biblioteca biblioteca;
     /**
      * Creates new form AgregarInformacionAutor
      */
-    public AgregarInformacionAutor(java.awt.Window parent, boolean modal,Biblioteca biblioteca) {
-        super(parent, modal);
+    public AgregarInformacionAutor(java.awt.Window parent, boolean modal,Autor autor,Biblioteca biblioteca) {
+        super((Dialog)parent, modal);
         initComponents();
         setSize(700, 550);
         setResizable(false);
         this.setLocationRelativeTo(null);
         
+        this.autor = autor;
         this.biblioteca = biblioteca;
         
         try{ 
@@ -42,11 +46,20 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        cerrar = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         nombreAutor = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        profesion = new javax.swing.JTextField();
+        btnAceptar = new javax.swing.JToggleButton();
+        btnAtras = new javax.swing.JToggleButton();
+        jLabel6 = new javax.swing.JLabel();
         editorial = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        documentoIdentidad = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        correoElectronico = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(700, 550));
@@ -55,15 +68,28 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/BibliotecaApp/images/cerrar.png"))); // NOI18N
+        cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -84,6 +110,38 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Ingresa el nombre de la editorial:");
 
+        profesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        profesion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        profesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profesionActionPerformed(evt);
+            }
+        });
+
+        btnAceptar.setBackground(new java.awt.Color(0, 102, 51));
+        btnAceptar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
+        btnAtras.setBackground(new java.awt.Color(204, 51, 0));
+        btnAtras.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnAtras.setForeground(new java.awt.Color(255, 255, 255));
+        btnAtras.setText("Atras");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Ingresa la profesion:");
+
         editorial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         editorial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         editorial.addActionListener(new java.awt.event.ActionListener() {
@@ -92,36 +150,87 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
             }
         });
 
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Ingresa el documento de identidad:");
+
+        documentoIdentidad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        documentoIdentidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        documentoIdentidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                documentoIdentidadActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Ingresa el correo electronico:");
+
+        correoElectronico.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        correoElectronico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        correoElectronico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                correoElectronicoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(45, 45, 45)
+                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAceptar)
+                .addGap(116, 116, 116))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4))
-                .addGap(39, 39, 39)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))))
+                .addGap(45, 45, 45)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(nombreAutor)
-                        .addGap(46, 46, 46))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(editorial, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                        .addGap(36, 36, 36))))
+                    .addComponent(nombreAutor)
+                    .addComponent(profesion, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                    .addComponent(editorial)
+                    .addComponent(documentoIdentidad)
+                    .addComponent(correoElectronico))
+                .addGap(46, 46, 46))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(nombreAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(profesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(nombreAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(documentoIdentidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(correoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAtras)
+                    .addComponent(btnAceptar))
+                .addGap(62, 62, 62))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,16 +262,96 @@ public class AgregarInformacionAutor extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreAutorActionPerformed
 
+    private void profesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profesionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_profesionActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        String nombre = nombreAutor.getText().trim();
+    String profesionAutor = profesion.getText().trim();
+    String editorialLibro = editorial.getText().trim();
+    String numeroIdentidad = documentoIdentidad.getText().trim();
+    String correo = correoElectronico.getText().trim();
+
+    // Verificar que todos los campos estén llenos
+    if (nombre.isEmpty() || profesionAutor.isEmpty() || editorialLibro.isEmpty() || 
+        numeroIdentidad.isEmpty() || correo.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
+        return;
+    }
+
+    try {
+        // Validar que el documento de identidad sea un número positivo
+        long documento = Long.parseLong(numeroIdentidad);
+        if (documento <= 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El documento de identidad debe ser un número positivo.");
+            return;
+        }
+
+        
+        if (!correo.contains("@")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El correo electrónico debe contener '@'.");
+            return;
+        }
+
+        
+        if (biblioteca.obtenerAutorPorDocumento(documento) != null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Ya existe un autor con este documento de identidad.");
+            return;
+        }
+
+        
+        Autor nuevoAutor = new Autor(documento, nombre, profesionAutor, editorialLibro, correo);
+        biblioteca.agregarAutor(nuevoAutor);  
+
+        javax.swing.JOptionPane.showMessageDialog(this, "Autor agregado con éxito.");
+        System.out.println("Autor guardado: " + nuevoAutor.getNombre() + " - Documento: " + nuevoAutor.getDocumento());
+
+        
+        this.dispose(); 
+
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El documento de identidad debe ser un número válido.");
+    }
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_cerrarActionPerformed
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnAtrasActionPerformed
+
     private void editorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editorialActionPerformed
 
+    private void documentoIdentidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentoIdentidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_documentoIdentidadActionPerformed
+
+    private void correoElectronicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoElectronicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_correoElectronicoActionPerformed
+public Autor getAutor() {
+    return autor;
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnAceptar;
+    private javax.swing.JToggleButton btnAtras;
+    private javax.swing.JToggleButton cerrar;
+    private javax.swing.JTextField correoElectronico;
+    private javax.swing.JTextField documentoIdentidad;
     private javax.swing.JTextField editorial;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField nombreAutor;
+    private javax.swing.JTextField profesion;
     // End of variables declaration//GEN-END:variables
 }
