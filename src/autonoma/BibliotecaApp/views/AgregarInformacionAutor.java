@@ -12,7 +12,11 @@ import autonoma.BibliotecaApp.models.Libro;
 
 /**
  *
- * @author USUARIO
+ * @author Heily Yohana Rios Ayala <heilyy.riosa@autonoma.edu.co>
+ * * 
+ * @version 1.0.0
+ * 
+ * @since 20250312
  */
 public class AgregarInformacionAutor extends javax.swing.JDialog {
        
